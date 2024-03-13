@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const express = require('express');
-const itemRoute = require('./route/item_route');
-const cartRoute = require('./route/cart_route')
+const taskRoute = require('./route/task_route');
 
 const app = express()
 app.use(express.json());
@@ -16,8 +15,9 @@ mongoose.connect("mongodb://127.0.0.1:27017/interview", { useNewUrlParser: true,
         console.log(error)
     })
 
-app.use('/item', itemRoute);
-app.use('/cart', cartRoute);
+
+app.use('/api', taskRoute);
+
 
 
   
