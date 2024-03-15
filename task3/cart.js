@@ -26,7 +26,7 @@ function addItemToCart(item, quantity) {
         cart.push(newItem);
         // console.log('cart', cart);
     }
-    // console.log('last', cart);
+    console.log('last', cart);
 }
 
 function viewCart() {

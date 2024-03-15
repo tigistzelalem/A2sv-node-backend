@@ -17,7 +17,7 @@ function errorHandler(err: Error, req: Request, res: Response, next: NextFunctio
 
     }
     console.error(JSON.stringify(err, null, 2));
-    return res.status(500).send({ erros: [{ message: 'something went wrong' }] });
+    return res.status(500).send({ errors: [{ message: 'something went wrong' }] });
 
 }
 

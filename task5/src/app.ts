@@ -7,7 +7,6 @@ import errorHandler  from './middleware/error'
 const app = express();
 
 app.use(bodyParser.json());
-app.use(errorHandler)
 app.use('/api', todoRoutes);
 
 
@@ -21,3 +20,8 @@ mongoose.connect('mongodb://localhost:27017/todoListDB')
     .catch((error) => {
         console.error('Error connecting to MongoDB:', error);
     });
+
+
+
+app.use(errorHandler)
+

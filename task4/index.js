@@ -6,7 +6,7 @@ const app = express()
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
-mongoose.connect("mongodb://127.0.0.1:27017/interview", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb://127.0.0.1:27017/auth", { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         app.listen(5000);
         console.log('connected')
