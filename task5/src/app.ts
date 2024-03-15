@@ -2,11 +2,14 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import todoRoutes from './routes/todoRoute'
+import errorHandler  from './middleware/error'
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(errorHandler)
 app.use('/api', todoRoutes);
+
 
 mongoose.connect('mongodb://localhost:27017/todoListDB')
     .then(() => {
