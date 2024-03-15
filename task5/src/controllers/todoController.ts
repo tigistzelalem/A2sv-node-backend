@@ -41,8 +41,16 @@ export const getToDoById = async (req: Request, res: Response): Promise<void> =>
 export const updateToDo = async (req: Request, res: Response): Promise<void> => {
     const { title, description, completed } = req.body;
     const id = req.params.id;
-    if (!id || !title || !description || !completed) {
-        throw new BadRequestError('Missing required id');
+    if (!title) {
+        throw new BadRequestError('Missing required field: title');
+    } else if (!description) {
+        throw new BadRequestError('Missing required field: description');
+    } else if (typeof completed !== 'boolean') {
+        throw new BadRequestError('Missing required field: completed');
+    }
+
+    if (!id) {
+        throw new BadRequestError('Missing required field: id');
     }
     const updateToDos = await ToDo.findByIdAndUpdate(
         id,
