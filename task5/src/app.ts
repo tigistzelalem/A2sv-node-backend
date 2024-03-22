@@ -1,15 +1,8 @@
-import express from 'express';
-import bodyParser from 'body-parser';
+
 import mongoose from 'mongoose';
-import todoRoutes from './routes/todoRoute'
-import errorHandler  from './middleware/error'
+import createServer from './utils/server';
 
-const app = express();
-
-app.use(bodyParser.json());
-app.use('/api', todoRoutes);
-
-
+const app = createServer();
 mongoose.connect('mongodb://localhost:27017/todoListDB')
     .then(() => {
         console.log('Connected to MongoDB');
@@ -23,5 +16,4 @@ mongoose.connect('mongodb://localhost:27017/todoListDB')
 
 
 
-app.use(errorHandler)
 
