@@ -22,10 +22,11 @@ describe('todo', () => {
             "email": "test@gmail.com",
             "password": "test1234"
         });
-        authToken = await request(app).post('/api/auth/signin').send({
+        const login = await request(app).post('/api/auth/signin').send({
             "email": "test@gmail.com",
             "password": "test1234"
         })
+        authToken = login.body.token
     }, 10000)
 
 
@@ -64,6 +65,8 @@ describe('todo', () => {
             });
         });
     });
+
+
     describe('create todo route', () => {
         describe('given the user is not logged in ', () => {
             it('should return a 403', async () => {
@@ -77,7 +80,7 @@ describe('todo', () => {
         describe('given the user is logged in ', () => {
             it('should return 200 and create the product', async () => {
                 const response = await supertest(app).post('/api/createTodo')
-                    .set('Authorization', `Bearer ${authToken.body.token}`)
+                    .set('Authorization', `Bearer ${authToken}`)
                     .send(todoPayload)
 
                 expect(response.status).toBe(201)
@@ -87,5 +90,23 @@ describe('todo', () => {
         })
     });
 
-})
+    describe('get all todos', () => {
+        describe('if the user is not logged in', () => {
+            it('it should return 401', async () => {
+                const response = await supertest(app)
+                    .get('/api/getAllToDo')
+                expect(response.status).toBe(401);
+            })
+        });
 
+        describe('if there user is logged in  ', () => {
+            it('it should return 200 and the todos', async () => {
+                const response = await supertest(app)
+                    .get('/api/getAllToDo')
+                    .set('Authorization', `Bearer ${authToken}`)
+                expect(response.status).toBe(200)
+            })
+        })
+
+    })
+})
